@@ -1,0 +1,42 @@
+body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 1px solid rgba($color: #303030, $alpha: 0.1);
+    background: #c8c7c7;
+  
+    h1 {
+      font-size: 40px;
+      font-weight: bold;
+    }
+  
+    ul {
+      display: flex;
+      gap: 200px;
+  
+      li {
+        list-style: none;
+  
+        a, a:visited {
+          text-decoration: none;
+          color: #010102;
+          font-size: 20px;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+  
+  main {
+    height: 100%;
+    background-color: #cac7c767;
+  }
+}
+
+
+

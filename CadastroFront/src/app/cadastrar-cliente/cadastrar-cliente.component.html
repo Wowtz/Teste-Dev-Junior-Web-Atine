@@ -1,0 +1,100 @@
+<div class="clienteForm">
+  <h1>Cadastro</h1>
+  <form [formGroup]="clienteForm" (ngSubmit)="cadastrarCliente()">
+    <div class="form-input">
+      <label>Razão Social</label>
+      <input type="text" class="form-control" formControlName="razaoSocial">
+      <div class="mensagem-erro"
+        *ngIf="clienteForm.get('razaoSocial')?.errors?.required && (clienteForm.get('razaoSocial')?.touched || mostrarErros)">
+        Campo Obrigatorio!
+      </div>
+      <div class="mensagem-erro"
+        *ngIf="clienteForm.get('razaoSocial')?.errors?.minlength && (clienteForm.get('razaoSocial')?.touched || mostrarErros)">
+        Insira um nome maior.
+      </div>
+    </div>
+
+    <div class="form-input">
+      <label>CNPJ</label>
+      <input 
+        type="text"
+        class="form-control"
+        formControlName="cnpj"
+        maxlength="14"
+        mask="CPF_CNPJ"
+      >
+      <div class="mensagem-erro"
+        *ngIf="clienteForm.get('cnpj')?.errors?.required && (clienteForm.get('cnpj')?.touched || mostrarErros)">
+        Campo Obrigatorio!
+      </div>
+      <div class="mensagem-erro"
+        *ngIf="clienteForm.get('cnpj')?.errors?.minlength && (clienteForm.get('cnpj')?.touched || mostrarErros)">
+        Insira um CNPJ válido.
+      </div>
+    </div>
+
+    <div class="form-input">
+      <label>Endereço</label>
+      <input type="text" class="form-control" formControlName="endereco">
+      <div class="mensagem-erro"
+        *ngIf="clienteForm.get('endereco')?.errors?.required && (clienteForm.get('endereco')?.touched || mostrarErros)">
+        Campo Obrigatorio!
+      </div>
+      <div class="mensagem-erro"
+        *ngIf="clienteForm.get('endereco')?.errors?.minlength && (clienteForm.get('endereco')?.touched || mostrarErros)">
+        Insira um endereço válido
+      </div>
+    </div>
+
+    <div formArrayName="telefones">
+      <div class="adicionar">
+        <span>Adicionar Telefone (com DDD)</span>
+        <button type="button" (click)="adicionarTelefone()">+</button>
+      </div>
+
+      <div class="form-input" *ngFor="let telefone of telefoneControl().controls; let i = index">
+        <input type="number" class="form-control" [formControlName]="i"  maxlength="11">
+        <div class="mensagem-erro"
+          *ngIf="telefoneControl().controls[i].errors?.required && telefoneControl().controls[i].touched">
+          Campo Obrigatorio!
+        </div>
+        <div class="mensagem-erro"
+          *ngIf="telefoneControl().controls[i].hasError('min') || telefoneControl().controls[i].hasError('max')">
+          Número Inválido
+        </div>
+      </div>
+
+    </div>
+
+    <div formArrayName="emails">
+      <div class="adicionar">
+        <span>Adicionar Email</span>
+        <button type="button" (click)="adicionarEmail()">+</button>
+      </div>
+
+      <div class="form-input" *ngFor="let email of emailControl().controls; let i = index">
+        <input type="text" class="form-control" [formControlName]="i">
+        <div class="mensagem-erro"
+          *ngIf="emailControl().controls[i].errors?.required && emailControl().controls[i].touched">
+          Campo Obrigatorio!
+        </div>
+        <div class="mensagem-erro"
+          *ngIf="emailControl().controls[i].errors?.email && emailControl().controls[i].touched">
+          Email inválido
+        </div>
+      </div>
+    </div> 
+
+    <div class="submit">
+      <button 
+        type="submit" 
+        class="cadastrar-btn"
+      >
+        Cadastrar
+      </button>
+    </div>
+  </form>
+  <div class="mensagem-erro footer">
+    {{MensagemErro}}
+  </div>
+</div>
